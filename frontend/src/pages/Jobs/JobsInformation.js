@@ -33,7 +33,7 @@ function JobsInformation() {
                     <div className="col">
                       <div className="card h-100">
                         <img
-                          src="{image_2}"
+                          src={e.company_logo}
                           className="card-img-top img-thumbnail"
                           alt="..."
                         />
