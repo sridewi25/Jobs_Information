@@ -1,0 +1,17 @@
+.title-navbar{
+  font-family: "Brush Script MT";
+  color: #fff;
+  font-size: 50px;
+}
+.bg-color{
+  background-color: #138496;
+}
+.nav-link{
+  font-size: 17px;
+}
+li{
+  padding-right:40px;
+}
+.item-style span{
+  padding-right:7px
+}

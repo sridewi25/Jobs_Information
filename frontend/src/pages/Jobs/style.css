@@ -1,0 +1,17 @@
+
+.bg-color-product{
+    background-color: #47ABBB;
+}
+.product-title{
+    text-align: center;
+}
+.card-style{
+    max-width: 1000px;
+    
+    background-color: white;
+    border-radius: 10px;
+}
+.row-bg-color{
+    background-color: white;
+    border-radius: 20px;
+}

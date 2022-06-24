@@ -1,0 +1,52 @@
+.bg-login{
+    background-color: #138496;
+}
+.bg-col{
+    height: 500px;
+    padding-top: 50px;
+}
+.bg-col-1{
+    background-color: white;
+    border-radius:10px;
+    text-align: center;
+}
+img{
+    padding-left: 60px;
+}
+
+.row{
+    border-radius:10px;
+    background-color: #FCF3EE;
+}
+
+h1{
+    font-family:'Helvetica';
+    color: black;
+}
+h4{
+    font-family:'Helvetica';
+}
+.bg-col-1 h1{
+    padding-top: 20px
+}
+.input-align{
+    margin-top: 45px;
+
+}
+.submit-btn button{
+    box-sizing: border-box;
+    background-color:#138496 ;
+    border: 3px solid #138496; 
+    border-radius: 20px;
+    color: white;
+    font-weight: bold;
+    width: 240px;
+    height: 40px;
+    text-align: center;
+  }
+  
+  .submit-btn{
+    text-align: center;
+    padding-top:10px;
+    padding-bottom: 20px;
+  }
