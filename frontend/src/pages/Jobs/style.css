@@ -1,4 +1,3 @@
-
 .bg-color-product{
     background-color: #47ABBB;
 }
@@ -14,4 +13,32 @@
 .row-bg-color{
     background-color: white;
     border-radius: 20px;
+}
+.job-bg-color{
+    background-color: #F3F8FC;
+}
+.padding-icon{
+    padding-right: 10px;
+    color:#47ABBB;
+}
+
+.title-style-job{
+    color:#00394f;
+    font-family: "Marker Felt, fantasy";
+}
+.h4-title-job{
+    color:#00394f;
+    font-family:"Comic Sans MS"
+}
+.box-shadow-job{
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+.img-style{
+    padding-left: 10px;
+}
+.bg-color-detail-job{
+    background-color:#84BCC2;
+}
+.btn-color-company{
+    background-color:#A1D2EB;
 }

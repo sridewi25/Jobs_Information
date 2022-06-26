@@ -1,38 +1,33 @@
-import {
-    GET_DETAIL_JOB,
-    GET_JOB_ALL,
-  } from "../../actions/Jobaction";
-  
-  const initialState = {
-    getDetailjobResult: false,
-    getDetailjobLoading: false,
-    getDetailjobError: false,
-  
-    getjobResult: false,
-    getjobLoading: false,
-    getjobError: false,
-  };
-  
-  const jobss = (state = initialState, action) => {
-    switch (action.type) {
-      case GET_DETAIL_JOB:
-        return {
-          ...state,
-          getDetailjobResult: action.payload.data,
-          getDetailjobLoading: action.payload.loading,
-          getDetailjobError: action.payload.errorMessage,
-        };
-      case GET_JOB_ALL:
-        return {
-          ...state,
-          getjobResult: action.payload.data,
-          getjobLoading: action.payload.loading,
-          getjobError: action.payload.errorMessage,
-        };
-      default:
-        return state;
-    }
-  };
-  
-  export default jobss;
-  
+import { GET_JOBS, GET_JOBS_DETAIL } from "../../actions/Jobaction";
+
+const initialState = {
+  getJobsResult: false,
+  getJobsLoading: false,
+  getJobsError: false,
+
+  getJobsDetailResult: false,
+  getJobsDetailLoading: false,
+  getJobsDetailError: false,
+};
+const jobsUser = (state = initialState, action) => {
+  switch (action.type) {
+    case GET_JOBS:
+      return {
+        ...state,
+        getJobsResult: action.payload.data,
+        getJobsLoading: action.payload.loading,
+        getJobsError: action.payload.errorMessage,
+      };
+      case GET_JOBS_DETAIL:
+      return {
+        ...state,
+        getJobsDetailResult: action.payload.data,
+        getJobsDetailLoading: action.payload.loading,
+        getJobsDetailError: action.payload.errorMessage,
+      };
+    default:
+      return state;
+  }
+};
+
+export default jobsUser;

@@ -1,7 +1,7 @@
 import React,{useEffect, useState} from 'react'
 import image_login from "../Login/image-1.jpg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEnvelope, faLock, faUser, faFlag, faVenusMars } from "@fortawesome/free-solid-svg-icons";
+import { faEnvelope, faLock, faUser, faFlag, faVenusMars, faCircleUser } from "@fortawesome/free-solid-svg-icons";
 import './style.css'
 import {useDispatch,useSelector} from 'react-redux';
 import {adduser} from '../../actions/useraction'
@@ -44,13 +44,13 @@ function PageRegsiter() {
   return (
     <div className="bg-login">
     <div className="container-md">
-      <div className="row justify-content-center bg-row">
+      <div className="row justify-content-center bg-row row-regis">
         <div className="col-7 bg-col">
           <img src={image_login} alt="" align="center" className="img-responsive"/>
         </div>
         <div className="col-5 bg-col-1">
-          <h1>Welcome</h1>
-          <h4>Create Your Account</h4>
+          <h1 className="h1-register">Welcome</h1>
+          <h4 className ="h4-register">Create Your Account</h4>
           <form onSubmit={(event)=>handleSubmit(event)}>
 
           <div className="input-group flex-nowrap input-align">
@@ -83,7 +83,7 @@ function PageRegsiter() {
 
             <div className="input-group flex-nowrap input-align">
               <span className="input-group-text">
-                <FontAwesomeIcon icon={faEnvelope}></FontAwesomeIcon>
+                <FontAwesomeIcon icon={faCircleUser}></FontAwesomeIcon>
               </span>
               <input
                 type="text"

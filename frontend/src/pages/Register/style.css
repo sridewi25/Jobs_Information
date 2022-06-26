@@ -14,16 +14,16 @@ img{
     padding-left: 60px;
 }
 
-.row{
+.row-regis{
     border-radius:10px;
     background-color: #FCF3EE;
 }
 
-h1{
+.h1-register{
     font-family:'Helvetica';
     color: black;
 }
-h4{
+.h4-register{
     font-family:'Helvetica';
 }
 .bg-col-1 h1{

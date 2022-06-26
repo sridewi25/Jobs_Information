@@ -1,76 +1,161 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "./style.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faInfo } from "@fortawesome/free-solid-svg-icons";
+import {
+  faBusinessTime,
+  faMapLocationDot,
+  faArrowRight,
+  faSearch,
+} from "@fortawesome/free-solid-svg-icons";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Link } from "react-router-dom";
-import { get_JOB_detail, getjob } from "../../actions/Jobaction";
+import { getalljobs } from "../../actions/Jobaction";
 import { useDispatch, useSelector } from "react-redux";
 
 function JobsInformation() {
-  const { getjobResult, getjobLoading, getjobError } = useSelector(
+  const { getJobsResult, getJobsLoading, getJobsError } = useSelector(
     (state) => state.jobReducer
   );
+  const [searchlocation, setSearchlocation] = useState("");
+  const [searchdescription, setSearchdescription] = useState("");
+  const [searchtype, setSearchtype] = useState("");
 
   const dispatch = useDispatch();
-
   useEffect(() => {
     console.log("1.Masuk UseEffect");
-    dispatch(getjob(localStorage.getItem("access_token")));
+    dispatch(getalljobs(localStorage.getItem("access_token")));
   }, [dispatch]);
   return (
     <>
-      <div className="bg-color-product">
-        <div className="container">
-          <br></br>
-          <h1 className="product-title">All Jobs</h1>
-          <br></br>
-          <div className="row row-cols-1 row-cols-md-3 g-4">
-            {getjobResult ? (
-              getjobResult.map((e) => {
-                return (
-                  <>
-                    <div className="col">
-                      <div className="card h-100">
-                        <img
-                          src={e.company_logo}
-                          className="card-img-top img-thumbnail"
-                          alt="..."
-                        />
-                        <div className="card-body">
-                          <h5 className="card-title">{e.title}</h5>
-                          <p className="card-text"> {e.company}</p>
-                          <p className="card-text"> {e.type}</p>
-                          <p className="card-text"> {e.location}</p>
-                          <div className="edit-btn d-grid gap-2 d-md-flex justify-content-md-center">
+      <div className="job-bg-color">
+        <div className="container-fluid pt-5">
+          <div className="container">
+            <div className="text-center pb-2 tile-line">
+              <p className="section-title px-5">
+                <span className="px-2 title-style-job">
+                  - Job Information -
+                </span>
+              </p>
+              <h1 className="mb-4 title-style-job">All Job Information</h1>
+            </div>
+
+            <div className="row pb-3">
+              <div className="col-lg-4">
+                <div className="input-group">
+                  <span className="input-group-text">
+                    <FontAwesomeIcon icon={faSearch}></FontAwesomeIcon>
+                  </span>
+                  <input
+                    type="text"
+                    className="form-control form-control"
+                    placeholder="Search by Location"
+                    onChange={(event) => {
+                      setSearchlocation(event.target.value);
+                    }}
+                  />
+                </div>
+              </div>
+              <div className="col-lg-4">
+                <div className="input-group">
+                  <span className="input-group-text">
+                    <FontAwesomeIcon icon={faSearch}></FontAwesomeIcon>
+                  </span>{" "}
+                  <input
+                    type="text"
+                    className="form-control form-control"
+                    placeholder="Search by Job Description"
+                    onChange={(event) => {
+                      setSearchdescription(event.target.value);
+                    }}
+                  />
+                </div>
+              </div>
+              <div className="col-lg-4">
+              <div className="input-group">
+                  <span className="input-group-text">
+                    <FontAwesomeIcon icon={faSearch}></FontAwesomeIcon>
+                  </span>{" "}
+                  <input
+                    type="text"
+                    className="form-control form-control"
+                    placeholder="Search by Type"
+                    onChange={(event) => {
+                      setSearchtype(event.target.value);
+                    }}
+                  />
+                </div>
+            </div>
+            </div>
+            <br></br>
+            <div className="row pb-3">
+              {getJobsResult ? (
+                getJobsResult
+                  .filter((job) => {
+                    if (searchlocation === "" && searchdescription === "" && searchtype === "") {
+                      return job;
+                    } else if (
+                      job.location
+                        .toLowerCase()
+                        .includes(searchlocation.toLowerCase()) &&
+                      job.description.toLowerCase().includes(searchdescription) 
+                      &&
+                      job.type.toLowerCase().includes(searchtype) 
+                    ) {
+                      return job;
+                    }
+                  })
+                  .map((e) => {
+                    return (
+                      <div className="col-lg-4 mb-4 ">
+                        <div className="card border-0 shadow-sm mb-2 box-shadow-job">
+                          <img
+                            className="card-img-top mb-2"
+                            src="https://d1csarkz8obe9u.cloudfront.net/posterpreviews/business-logo-design-template-78655edda18bc1196ab28760f1535baa_screen.jpg?ts=1617645324"
+                            alt=""
+                          />
+                          <div className="card-body bg-light text-center p-4">
+                            <h4 className="h4-title-job">{e.title}</h4>
+                            <div className="d-flex justify-content-center mb-4">
+                              <small className="padding-icon">
+                                <FontAwesomeIcon
+                                  icon={faBusinessTime}
+                                ></FontAwesomeIcon>{" "}
+                                {e.type}
+                              </small>
+                              <small className="padding-icon">
+                                <FontAwesomeIcon
+                                  icon={faMapLocationDot}
+                                ></FontAwesomeIcon>{" "}
+                                {e.location}
+                              </small>
+                            </div>
+                            <p>{e.company}</p>
                             <Link
-                              className="btn btn-sm btn btn-outline-primary"
-                              onClick={() => dispatch(get_JOB_detail(e.id))}
-                              to={`detail/${e.id}`}
+                              to={`info/${e.id}`}
+                              className="btn btn-primary px-4 mx-auto my-2"
                             >
+                              Read More{" "}
                               <span>
                                 <FontAwesomeIcon
-                                  icon={faInfo}
-                                ></FontAwesomeIcon>
-                              </span>{" "}
-                              Readmore
+                                  icon={faArrowRight}
+                                ></FontAwesomeIcon>{" "}
+                              </span>
                             </Link>
                           </div>
                         </div>
                       </div>
-                    </div>
-                  </>
-                );
-              })
-            ) : getjobLoading ? (
-              <p>Loading</p>
-            ) : (
-              <p>{getjobError ? getjobError : "Data Kosong"}</p>
-            )}
-            <br></br>
+                    );
+                  })
+              ) : getJobsLoading ? (
+                <p>Loading</p>
+              ) : (
+                <p>{getJobsError ? getJobsError : "Data Kosong"}</p>
+              )}
+            </div>
           </div>
         </div>
       </div>
+      
     </>
   );
 }

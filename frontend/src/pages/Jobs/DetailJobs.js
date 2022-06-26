@@ -1,78 +1,111 @@
 import React, { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faClock } from "@fortawesome/free-solid-svg-icons";
+import {
+  faBusinessTime,
+  faBuilding,
+  faMapLocationDot,
+} from "@fortawesome/free-solid-svg-icons";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./style.css";
 import { useDispatch, useSelector } from "react-redux";
-import { get_JOB_detail } from "../../actions/Jobaction";
-import { useParams } from "react-router-dom";
+import { get_job_detail } from "../../actions/Jobaction";
+import { Link, useParams } from "react-router-dom";
+import { Button } from "bootstrap";
 
 function DetailJobs() {
-  const { getDetailjobResult, getDetailjobLoading, getDetailjobError } =
+  const { getJobsDetailResult, getJobsDetailLoading, getJobsDetailError } =
     useSelector((state) => state.jobReducer);
 
   const { id } = useParams();
 
-  console.log(+id);
+  console.log(id);
   const dispatch = useDispatch();
 
   useEffect(() => {
     console.log("1.Masuk UseEffect");
-    dispatch(get_JOB_detail(+id, localStorage.getItem("access_token")));
+    dispatch(get_job_detail(id, localStorage.getItem("access_token")));
   }, [dispatch]);
   return (
-    <div className="bg-color-product">
-      <br></br>
-      <br></br>
-      <div className="container row-bg-color">
-        <br></br>
-        {getDetailjobResult ? (
-          getDetailjobResult.map((e) => {
-            return (
-              <>
-                <div className="row justify-content-center ">
-                  <div className="col-7">
-                    <img
-                      src={e.company_logo}
-                      alt=""
-                      align="center"
-                      className="img-fluid img-responsive img-thumbnail"
-                    />
-                  </div>
-                  <div className="col-5 ">
-                    <div className="card-body">
-                      <h5 className="card-title">{e.title}</h5>
-                      <p className="card-text">{e.description}</p>
-                      <p className="card-text">{e.url}</p>
-                      <p className="card-text">
-                        <small className="text-muted">
-                          <span>
+    <>
+      <div className="job-bg-color">
+        <div className="container py-5">
+          <div className="row align-items-start">
+            {getJobsDetailResult ? (
+              getJobsDetailResult.map((e) => {
+                return (
+                  <>
+                    <div className="col-lg-8">
+                      <div className="d-flex flex-column text-left mb-3">
+                        <p className="section-title pr-5">
+                          <span className="pr-2">Job Detail | {e.created_at}</span>
+                        </p>
+                        <h1 className="mb-3">{e.title}</h1>
+                        <div className="d-flex">
+                          <p className="padding-icon">
                             <FontAwesomeIcon
-                              icon={faClock}
+                              icon={faBusinessTime}
                             ></FontAwesomeIcon>{" "}
-                            Tipe Pekerjaan :{" "}
-                          </span>
-                          {e.type}{" "}
-                        </small>
-                      </p>
+                            {e.type}
+                          </p>
+                          <p className="padding-icon">
+                            <FontAwesomeIcon
+                              icon={faBuilding}
+                            ></FontAwesomeIcon>{" "}
+                            <span>{e.company}</span>
+                          </p>
+                          <p className="padding-icon">
+                            <FontAwesomeIcon
+                              icon={faMapLocationDot}
+                            ></FontAwesomeIcon>{" "}
+                            {e.location}
+                          </p>
+                        </div>
+                      </div>
+                      <div
+                        className="mb-5"
+                        dangerouslySetInnerHTML={{ __html: e.description }}
+                      ></div>
                     </div>
-                  </div>
-                </div>
-                <br></br>
-              </>
-            );
-          })
-        ) : getDetailjobLoading ? (
-          <p>Loading</p>
-        ) : (
-          <p>{getDetailjobError ? getDetailjobError : "Data Kosong"}</p>
-        )}
+                    <div className="col-lg-4 mt-5 mt-lg-0">
+                      <div className="d-flex flex-column text-center bg-color-detail-job rounded mb-5 py-5 px-4">
+                        <img
+                          src="https://d1csarkz8obe9u.cloudfront.net/posterpreviews/business-logo-design-template-78655edda18bc1196ab28760f1535baa_screen.jpg?ts=1617645324"
+                          className="img-fluid rounded-circle mx-auto justify-content-center img-style"
+                        ></img>
+
+                        <p className="text-white m-0">
+                          <a target="_blank" href={e.company_url}> <button className="btn btn-outline-secondary px-4 mx-auto my-2" onClick={e.company_url}>
+                            <span>
+                              <FontAwesomeIcon
+                                icon={faBuilding}
+                              ></FontAwesomeIcon>{" "}
+                            </span>
+                            Company Profile{" "}
+                          </button> </a>
+                         
+                        </p>
+                      </div>
+                      
+                      <div className="d-flex flex-column text-center bg-color-detail-job rounded mb-5 py-5 px-4 text-white">
+                      <h2 className=" mb-4 text-white">How To Apply</h2>
+                      <div dangerouslySetInnerHTML={{ __html: e.how_to_apply }}>
+
+                      </div>
+                      </div>
+                    </div>
+                  </>
+                );
+              })
+            ) : getJobsDetailLoading ? (
+              <p>Loading</p>
+            ) : (
+              <p>{getJobsDetailError ? getJobsDetailError : "Data Kosong"}</p>
+            )}
+            ;
+          </div>
+        </div>
       </div>
-      <br></br>
-      <br></br>
-      <br></br>
-      <br></br>
-    </div>
+    </>
   );
 }
 

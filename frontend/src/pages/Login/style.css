@@ -14,16 +14,16 @@ img{
     padding-left: 60px;
 }
 
-.row{
+.row-login{
     border-radius:10px;
     background-color: #FCF3EE;
 }
 
-h1{
+.h1-login{
     font-family:'Helvetica';
     color: black;
 }
-h4{
+.h4-login{
     font-family:'Helvetica';
 }
 .bg-col-1 h1{

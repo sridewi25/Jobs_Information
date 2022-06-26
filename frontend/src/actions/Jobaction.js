@@ -1,98 +1,98 @@
 import axios from "axios";
 
-const GET_DETAIL_JOB = "GET_DETAIL_JOB";
-const GET_JOB_ALL = "GET_JOB_ALL";
+const GET_JOBS = "GET_JOBS";
+const GET_JOBS_DETAIL = "GET_JOBS_DETAIL";
 
-const get_JOB_detail = (data,access_token) => {
-  return (dispatch) => {
-    // untuk loading
-    console.log(data);
-    dispatch({
-      type: "GET_DETAIL_JOB",
-      payload: {
-        loading: true,
-        data: false,
-        errorMessage: false,
-      },
-    });
-
-    // get API
-    axios({
-      method: "GET",
-      url: `http://localhost:3000/jobs/${data}`,
-      timeout: 120000,
-      headers: {
-        Access_Token: access_token,
-      },
-    })
-      .then((response) => {
-        dispatch({
-          type: "GET_DETAIL_JOB",
-          payload: {
-            loading: false,
-            data: response.data,
-            errorMessage: false,
-          },
-        });
-      })
-      .catch((error) => {
-        dispatch({
-          type: "GET_DETAIL_JOB",
-          payload: {
-            loading: false,
-            data: error.message,
-            errorMessage: false,
-          },
-        });
+const getalljobs = (access_token) => {
+    return (dispatch) => {
+      // untuk loading
+      dispatch({
+        type: "GET_JOBS",
+        payload: {
+          loading: true,
+          data: false,
+          errorMessage: false,
+        },
       });
-  };
-};
-const getjob = (access_token) => {
-  return (dispatch) => {
-    console.log("2.")
-    // untuk loading
-    dispatch({
-      type: "GET_JOB_ALL",
-      payload: {
-        loading: true,
-        data: false,
-        errorMessage: false,
-      },
-    });
-
-    // get API
-    axios({
-      
-      method: "GET",
-      url: "http://localhost:3000/jobs",
-      timeout: 120000,
-      headers: {
-        Access_Token: access_token,
-      },
-    })
-      .then((response) => {
-        console.log("3.")
-        dispatch({
-          type: "GET_JOB_ALL",
-          payload: {
-            loading: false,
-            data: response.data,
-            errorMessage: false,
+  
+      // get API
+      axios({
+        method: "GET",
+        url: "http://localhost:3000/jobs",
+        timeout: 120000,
+        headers: {
+            Access_Token: access_token,
           },
-        });
       })
-      .catch((error) => {
+        .then((response) => {
+          dispatch({
+            type: "GET_JOBS",
+            payload: {
+              loading: false,
+              data: response.data,
+              errorMessage: false,
+            },
+          });
+        })
+        .catch((error) => {
+          dispatch({
+            type: "GET_JOBS",
+            payload: {
+              loading: false,
+              data: error.message,
+              errorMessage: false,
+            },
+          });
+        });
+    };
+  };
+
+  const get_job_detail = (data,access_token) => {
+    return (dispatch) => {
+      // untuk loading
+      console.log(access_token)
+      dispatch({
+        type: "GET_JOBS_DETAIL",
+        payload: {
+          loading: true,
+          data: false,
+          errorMessage: false,
+        },
+      });
+  
+      // get API
+      axios({
+        method: "GET",
+        url: `http://localhost:3000/jobs/info/${data}`,
+        timeout: 120000,
+        headers: {
+            Access_Token: access_token,
+          },
         
-        dispatch({
-          
-          type: "GET_JOB_ALL",
-          payload: {
-            loading: false,
-            data: error.message,
-            errorMessage: false,
-          },
+      })
+        .then((response) => {
+          dispatch({
+            type: "GET_JOBS_DETAIL",
+            payload: {
+              loading: false,
+              data: response.data,
+              errorMessage: false,
+            },
+          });
+        })
+        .catch((error) => {
+          dispatch({
+            type: "GET_JOBS_DETAIL",
+            payload: {
+              loading: false,
+              data: error.message,
+              errorMessage: false,
+            },
+          });
         });
-      });
+    };
   };
-};
-export { GET_DETAIL_JOB, get_JOB_detail, GET_JOB_ALL, getjob };
+
+export {
+    GET_JOBS,GET_JOBS_DETAIL,getalljobs,get_job_detail
+}
